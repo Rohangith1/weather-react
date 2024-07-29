@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Weather.css'
+import "./Weather.css";
 
 const api = {
   key: "d2e4d3de52d8762eb6a44cc0b6fbddfe",
@@ -54,8 +54,16 @@ const Weather = () => {
     return `${day} ${date} ${month} ${year}`;
   };
   return (
-    <div>
-      <main>
+    <div
+      className={
+        typeof weather.main != "undefined"
+          ? weather.main.temp > 16
+            ? "app warm"
+            : "app"
+          : "app"
+      }
+    >
+     <main>
         <div className="search-box">
           <input
             type="text"
@@ -71,18 +79,18 @@ const Weather = () => {
             <div className="location-box">
               <div className="location">
                 {weather.name},{weather.sys.country}
-                <div className="date">{dateBuilder(new Date())}</div>
               </div>
-              <div className="weather-box">
-                              <div className="temp">{Math.round(weather.main.temp)}°c</div>
-                              <div className="weather">{weather.weather[0].main }</div>
-              </div>
+              <div className="date">{dateBuilder(new Date())}</div>
+            </div>
+            <div className="weather-box">
+              <div className="temp">{Math.round(weather.main.temp)}°c</div>
+              <div className="weather">{weather.weather[0].main}</div>
             </div>
           </div>
         ) : (
           ""
         )}
-      </main>
+     </main>
     </div>
   );
 };
